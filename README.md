@@ -96,7 +96,7 @@
 
   3. 메뉴 수정 기능
 
-         // 화면 전환 함수: 수정 모드로 폼 열기
+    // 화면 전환 함수: 수정 모드로 폼 열기
     function showForm(editIndex = null) {
     formContainer.style.display = "block";
     listContainer.style.display = "none";
@@ -117,7 +117,7 @@
  
   4. 메뉴 삭제 기능
 
-         // localStorage에서 메뉴 삭제
+    // localStorage에서 메뉴 삭제
     function deleteMenu(index) {
     const menus = getMenus(); // 기존 메뉴 배열 가져오기
     menus.splice(index, 1);    // index 위치의 메뉴 삭제
