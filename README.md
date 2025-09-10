@@ -4,7 +4,16 @@
 - 기본적인 DOM 조작 및 이벤트 처리를 구현할 수 있어요.
 - 화면 전환을 통한 CSR 느낌 익히기 (window.location.href 활용)
 
-  1. 메뉴 등록 기능
+시연영상
+
+https://github.com/user-attachments/assets/3556c917-0a8f-4db8-be10-bdc7365eb66d
+
+
+
+
+
+
+   1. 메뉴 등록 기능
  
   🔹핵심 포인트
 
