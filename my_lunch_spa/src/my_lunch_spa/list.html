@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>메뉴 목록</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="list-card">
+    <h2>📋 메뉴 목록</h2>
+    <ul id="menuList"></ul>
+
+    <div class="form-actions">
+        <button onclick="window.location.href='form.html'" class="btn btn-primary">➕ 메뉴 등록</button>
+        <button onclick="window.location.href='index.html'" class="btn btn-secondary">홈으로</button>
+    </div>
+
+    <div class="form-actions mt-3">
+        <button id="randomBtn" class="btn btn-primary">랜덤 추천</button>
+        <p id="randomResult"></p>
+    </div>
+</div>
+
+<script src="script/storage.js"></script>
+<script src="script/list.js"></script>
+</body>
+</html>
+
+

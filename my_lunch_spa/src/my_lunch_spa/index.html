@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>점메추 SPA</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="card-main" id="mainCard">
+    <h2>🍱 점메추 SPA</h2>
+    <div class="form-actions">
+        <button id="showFormBtn" class="btn btn-primary">메뉴 등록</button>
+        <button id="showListBtn" class="btn btn-secondary">메뉴 목록</button>
+    </div>
+
+
+    <div id="formContainer" style="display:none; margin-top:30px;">
+        <h2>🍱 메뉴 등록 / 수정</h2>
+        <form id="menuForm">
+            <label for="name">메뉴 이름</label>
+            <input type="text" id="name" required>
+
+            <label for="spicy">맵기 (1~10)</label>
+            <input type="number" id="spicy" min="1" max="10" required>
+
+            <label for="price">가격</label>
+            <input type="number" id="price" required>
+
+            <input type="hidden" id="menuIndex">
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">저장</button>
+                <button type="button" id="cancelBtn" class="btn btn-secondary">취소</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- 목록 -->
+    <div id="listContainer" style="display:none; margin-top:30px;">
+        <h2>📋 메뉴 목록</h2>
+        <ul id="menuList"></ul>
+
+        <div class="form-actions mt-3">
+            <button id="randomBtn" class="btn btn-primary">랜덤 추천</button>
+            <p id="randomResult"></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ---------- Storage ----------
+    function getMenus() {
+        const data = localStorage.getItem("menus");
+        return data ? JSON.parse(data) : [];
+    }
+    function addMenu(menu) {
+        const menus = getMenus();
+        menus.push(menu);
+        localStorage.setItem("menus", JSON.stringify(menus));
+    }
+    function updateMenu(index, menu) {
+        const menus = getMenus();
+        menus[index] = menu;
+        localStorage.setItem("menus", JSON.stringify(menus));
+    }
+    function deleteMenu(index) {
+        const menus = getMenus();
+        menus.splice(index, 1);
+        localStorage.setItem("menus", JSON.stringify(menus));
+    }
+
+    // ---------- UI ----------
+    const showFormBtn = document.getElementById("showFormBtn");
+    const showListBtn = document.getElementById("showListBtn");
+    const formContainer = document.getElementById("formContainer");
+    const listContainer = document.getElementById("listContainer");
+    const cancelBtn = document.getElementById("cancelBtn");
+    const menuForm = document.getElementById("menuForm");
+    const menuIndexInput = document.getElementById("menuIndex");
+    const menuListEl = document.getElementById("menuList");
+    const randomBtn = document.getElementById("randomBtn");
+    const randomResult = document.getElementById("randomResult");
+
+    // ---------- 화면 전환 ----------
+    function showForm(editIndex=null) {
+        formContainer.style.display = "block";
+        listContainer.style.display = "none";
+
+        if(editIndex !== null) {
+            const menus = getMenus();
+            const menu = menus[editIndex];
+            document.getElementById("name").value = menu.name;
+            document.getElementById("spicy").value = menu.spicy;
+            document.getElementById("price").value = menu.price;
+            menuIndexInput.value = editIndex;
+        } else {
+            menuForm.reset();
+            menuIndexInput.value = "";
+        }
+    }
+
+    function showList() {
+        formContainer.style.display = "none";
+        listContainer.style.display = "block";
+        renderList();
+    }
+
+    // ---------- 버튼 이벤트 ----------
+    showFormBtn.addEventListener("click", () => showForm());
+    showListBtn.addEventListener("click", showList);
+    cancelBtn.addEventListener("click", showList);
+
+    // ---------- 폼 제출 ----------
+    menuForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const menu = {
+            name: document.getElementById("name").value,
+            spicy: Number(document.getElementById("spicy").value),
+            price: Number(document.getElementById("price").value)
+        };
+
+        const index = menuIndexInput.value;
+        if(index) {
+            updateMenu(index, menu);
+        } else {
+            addMenu(menu);
+        }
+
+        showList(); // 등록 후 목록 화면 보여주기
+    });
+
+    // ---------- 목록 렌더링 ----------
+    function renderList() {
+        const menus = getMenus();
+        menuListEl.innerHTML = "";
+
+        if(menus.length === 0) {
+            menuListEl.innerHTML = "<li>등록된 메뉴가 없습니다.</li>";
+            return;
+        }
+
+        menus.forEach((menu,index)=>{
+            const li = document.createElement("li");
+            li.className = "menu-item";
+            li.innerHTML = `
+            ${menu.name} (맵기: ${menu.spicy}, 가격: ${menu.price}원)
+            <span>
+                <button onclick="showForm(${index})" class="btn btn-primary btn-sm">수정</button>
+                <button onclick="deleteMenu(${index}); renderList();" class="btn btn-secondary btn-sm">삭제</button>
+            </span>
+        `;
+            menuListEl.appendChild(li);
+        });
+    }
+
+    // ---------- 랜덤 추천 ----------
+    randomBtn.addEventListener("click", ()=>{
+        const menus = getMenus();
+        if(menus.length===0){
+            randomResult.textContent = "추천할 메뉴가 없습니다 😢";
+            return;
+        }
+        const randomIndex = Math.floor(Math.random()*menus.length);
+        const menu = menus[randomIndex];
+        randomResult.textContent = `오늘의 추천 메뉴 👉 ${menu.name} (${menu.price}원)`;
+    });
+
+    showList();
+</script>
+</body>
+</html>
+

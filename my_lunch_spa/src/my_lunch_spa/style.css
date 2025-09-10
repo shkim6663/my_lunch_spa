@@ -1,0 +1,125 @@
+/* ────────────── 공통 바디 스타일 ────────────── */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+/* ────────────── 카드 공통 스타일 ────────────── */
+.card-form, .card-main, .list-card {
+    max-width: 700px;
+    margin: 50px auto;
+    padding: 2.5rem;
+    border-radius: 1rem;
+    background-color: #ffffff;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+/* ────────────── 제목 스타일 ────────────── */
+h1, h2 {
+    text-align: center;
+    color: #495057;
+    margin-bottom: 1.5rem;
+}
+
+/* ────────────── 폼 레이블 ────────────── */
+label, .form-label {
+    font-weight: 500;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* ────────────── 입력폼 스타일 ────────────── */
+input[type="text"], input[type="number"], select {
+    width: 100%;
+    padding: 0.6rem;
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #ced4da;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input[type="text"]:focus, input[type="number"]:focus, select:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 5px rgba(13, 110, 253, 0.3);
+    outline: none;
+}
+
+/* ────────────── 버튼 스타일 ────────────── */
+button, .btn {
+    padding: 0.6rem 1.5rem;
+    border-radius: 0.5rem;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button.btn-primary {
+    background-color: #0d6efd;
+    color: white;
+}
+
+button.btn-primary:hover {
+    background-color: #0b5ed7;
+}
+
+button.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+button.btn-secondary:hover {
+    background-color: #5c636a;
+}
+
+/* ────────────── 버튼 그룹 중앙 정렬 ────────────── */
+.form-actions {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+/* ────────────── 리스트 항목 ────────────── */
+.menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    background-color: #fefefe;
+    border-bottom: 1px solid #e9ecef;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin-bottom: 12px;
+    transition: transform 0.1s ease;
+}
+
+.menu-item:hover {
+    transform: translateY(-2px);
+}
+
+/* ────────────── 리스트 버튼 ────────────── */
+.menu-item button {
+    margin-left: 10px;
+}
+
+/* ────────────── 랜덤 추천 텍스트 ────────────── */
+#randomResult {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-top: 10px;
+    text-align: center;
+    color: #212529;
+}
+
+/* ────────────── 추가 스타일 (선택) ────────────── */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+a.btn {
+    text-decoration: none;
+    display: inline-block;
+}
